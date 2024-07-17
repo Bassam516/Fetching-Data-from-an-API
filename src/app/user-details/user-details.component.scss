@@ -1,0 +1,50 @@
+
+.user-container{
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .user-card{
+        padding: 40px 20px;
+        border-radius: 10px;
+        width: 75%;
+
+        h3{
+            margin: 40px 0;
+            span{
+                color: #4f34ff;
+            }
+            i{
+                color: rgb(255, 179, 15);
+                font-size: 20px;
+            }
+        }
+
+        h4{
+            margin-bottom: 0; 
+            background-color: #4f34ffa5;
+            color: #fff;
+            padding: 10px 20px;
+        }
+
+        ul{
+            margin-bottom: 20px;
+            background-color: #e4e0ff;
+            li{
+                padding: 7px 20px; 
+                span{
+                    font-weight: bold;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width:991px){
+    .user-container{
+        .user-card{
+            width: 100%;
+            padding: 10px;
+        }
+    }
+}

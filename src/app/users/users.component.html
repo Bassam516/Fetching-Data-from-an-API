@@ -1,0 +1,41 @@
+<!-- start navbar -->
+<nav class="navbar navbar-expand-sm navbar-light bg-light">
+    <div class="container">
+        <a class="navbar-brand"><i class="pi pi-database"></i> FetchData</a>
+        <input [(ngModel)]="searchTerm" class="form-control me-sm-2" type="text" placeholder="Search by name or username" />
+        <button class="btn btn-outline-primary" (click)="handleLogout()">Logout</button>
+    </div>
+</nav>
+
+<p-dropdown [options]="options" [(ngModel)]="selectedOption" [checkmark]="true" optionLabel="name"
+    placeholder="Sort by.." />
+
+<!-- start loading skeleton -->
+<div *ngIf="isLoading" class="row py-5">
+    <div *ngFor="let item of [0,1,2]" class="col-md-4 my-3">
+        <div class="w-full xl:w-6 p-3">
+            <p-skeleton styleClass="mb-2" />
+            <p-skeleton width="5rem" styleClass="mb-2" />
+            <p-skeleton width="10rem" styleClass="mb-2" />
+            <p-skeleton width="10rem" height="4rem" />
+        </div>
+    </div>
+</div>
+
+<!-- start display data -->
+<div class="row pb-5" *ngIf="(allUsers|search:searchTerm).length > 0 && !isLoading; else noUsers">
+    <div *ngFor="let user of allUsers|search:searchTerm | sort:selectedOption?.name " class="col-lg-4 col-md-6 my-3">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">{{user.name}}</h5>
+                <h6><i class="pi pi-user"></i> {{user.username}}</h6>
+                <p class="card-text"><i class="pi pi-inbox"></i> {{user.email}}</p>
+                <a [routerLink]="['/user',user.id]" class="btn btn-primary"><i class="pi pi-plus-circle"></i> User details</a>
+            </div>
+        </div>
+    </div>
+</div>
+<p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows" [totalRecords]="totalRecords" />
+<ng-template #noUsers>
+    <h5 class="text-center py-5" *ngIf="!isLoading">No users founded</h5>
+</ng-template>
